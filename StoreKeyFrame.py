@@ -4,14 +4,22 @@
 import cv2
 from skimage.metrics import structural_similarity as ssim
 import sys
+import os
 
 if len(sys.argv) >= 2:
     filename = sys.argv[1]
 else:
-    filename = 'demo.mp4'
+    filename = 'demo'
 print ('Hello', filename)
 
-vidcap = cv2.VideoCapture(filename)
+# Create the directory
+# 'GeeksForGeeks' in
+# '/home / User / Documents'
+# directory = 'test'
+os.mkdir(filename)
+print("Directory '% s' created" % filename)
+
+vidcap = cv2.VideoCapture(filename + ".mp4")
 success,image = vidcap.read()
 score_thresh = 0.95 # You may need to adjust this threshold
 count = 0
@@ -28,7 +36,7 @@ while success:
    # Compute SSIM between two images
    (score, diff) = ssim(pre_gray, curr_gray, full=True)
    if score < score_thresh: 
-       cv2.imwrite("p_frame%d.png" % count, curr_frame)
+       cv2.imwrite(filename + "/" + filename + "_frame_%d.png" % count, curr_frame)
        prev_frame = curr_frame
    else:
         print("Image similarity:", score)
