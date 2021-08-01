@@ -3,8 +3,15 @@
 
 import cv2
 from skimage.metrics import structural_similarity as ssim
+import sys
 
-vidcap = cv2.VideoCapture('2021072113595965.mp4')
+if len(sys.argv) >= 2:
+    filename = sys.argv[1]
+else:
+    filename = 'demo.mp4'
+print ('Hello', filename)
+
+vidcap = cv2.VideoCapture(filename)
 success,image = vidcap.read()
 score_thresh = 0.95 # You may need to adjust this threshold
 count = 0
